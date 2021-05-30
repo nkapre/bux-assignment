@@ -1,0 +1,6 @@
+applicationType: cli
+defaultPackage: bux.assignment
+testFramework: junit
+sourceLanguage: java
+buildTool: maven
+features: [annotation-api, app-name, http-client, java, junit, logback, maven, mockito, picocli, picocli-java-application, picocli-junit, readme, rxjava3, shade, slf4j-simple,shade, yaml]
