@@ -3,11 +3,16 @@
 The submission for assignment is made using Java 12 and Micronaut framework with CLI support using PicoCli. The WebSocket client has been built using Jetty WebSocket client. Original creation was using the Netty WebSocket client, but the Connected message was for some reason never raised/captured. Logging is performed using SLF4J. The Rest client needs for interfacign with Buy and Sell URLs is created using the RxHttpClient. 
 
 The project is built using Maven and the project may be built using
-* ./mvnw clean package
+
+```
+./mvnw clean package
+```
 
 To execute the program, the following command may be issued with suitable changes to the startup parameters.
 
+```
 java -jar bux-assignment-0.1.jar --productId sb26493 --buyPrice 11669.5 --upperSellPrice 11673 --lowerSellPrice 11670
+```
 
 # Assumptions made
 1. At the start of the program, there are no holdings with us. When the current price <= buying price, the buy order is executed.
