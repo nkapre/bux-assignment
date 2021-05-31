@@ -5,8 +5,8 @@ The submission for assignment is made using the following :
 * Java 12 
 * Micronaut framework with CLI support using PicoCli
 * Jetty Websocket Client
-* SLF4JLogging is perf
-* RxHttpClient 
+* SLF4J Logging
+* RxHttpClient REST operations
 * Maven
 
 The project is built using Maven and the project may be built using
