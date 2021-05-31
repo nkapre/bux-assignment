@@ -29,7 +29,7 @@ public class Trader {
             return null;
         }
 
-        if (this.holdings.getProductIdsBought().isEmpty()) {
+        if (this.holdings.getProductsBought().isEmpty()) {
             // Buy if applicable
             if (!this.holdings.hasHolding(tradeQuote.getBody().getSecurityId()) &&
             buyingConditionMet(tradeQuote)) {
@@ -99,5 +99,14 @@ public class Trader {
 
     public void setTradeParameters(TradeParameters tradeParameters) {
         this.tradeParameters = tradeParameters;
+    }
+
+    public void updateHolding (Product product, TradeActionEnum tradeAction) {
+        if (tradeAction == TradeActionEnum.BUY) {
+            this.holdings.addToHoldings(product);
+        }
+        else if (tradeAction == TradeActionEnum.SELL) {
+            this.holdings.removeFromHolding(product);
+        }
     }
 }

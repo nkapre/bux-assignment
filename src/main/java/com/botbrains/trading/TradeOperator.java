@@ -1,10 +1,7 @@
 package com.botbrains.trading;
 
-import com.botbrains.cbo.trading.TradeParameters;
+import com.botbrains.cbo.trading.*;
 import com.botbrains.cbo.subscription.SubscriptionRequest;
-import com.botbrains.cbo.trading.DirectionEnum;
-import com.botbrains.cbo.trading.TradeOrder;
-import com.botbrains.cbo.trading.TradeQuote;
 import com.botbrains.client.BotBrainsRestCient;
 import com.botbrains.client.BotBrainsWebSocketClient;
 import com.google.gson.Gson;
@@ -102,12 +99,15 @@ public class TradeOperator {
         //Only if this is for a product we are interested in, should we act on it.
         if (tradeQuote.isForProduct(tradeParameters.getProductId())) {
             TradeOrder tradeOrder = trader.handleTradeQuote(tradeQuote);
+            TradeOrderResponse response = null;
 
             if (tradeOrder.getDirection() == DirectionEnum.BUY) {
-                restClient.buyOrder(tradeOrder);
+                response = restClient.buyOrder(tradeOrder);
+                trader.updateHolding(response.getProduct(), TradeActionEnum.BUY);
             }
             else if (tradeOrder.getDirection() == DirectionEnum.SELL) {
-                restClient.sellOrder(tradeOrder);
+                response = restClient.sellOrder(tradeOrder);
+                trader.updateHolding(response.getProduct(), TradeActionEnum.SELL);
             }
         }
     }

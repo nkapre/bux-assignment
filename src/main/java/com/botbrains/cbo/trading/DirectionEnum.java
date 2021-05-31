@@ -7,5 +7,8 @@ public enum DirectionEnum {
         this.direction = directionString;
     }
 
-
+    @Override
+    public String toString() {
+        return this.direction;
+    }
 }

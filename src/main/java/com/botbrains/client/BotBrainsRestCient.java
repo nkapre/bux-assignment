@@ -1,6 +1,7 @@
 package com.botbrains.client;
 
 import com.botbrains.cbo.trading.TradeOrder;
+import com.botbrains.cbo.trading.TradeOrderResponse;
 import com.google.gson.Gson;
 import io.micronaut.context.annotation.Value;
 import io.micronaut.http.HttpRequest;
@@ -35,7 +36,7 @@ public class BotBrainsRestCient {
     @Value("${micronaut.lang}")
     private String lang;
 
-    public void buyOrder(TradeOrder tradeOrder) {
+    public TradeOrderResponse buyOrder(TradeOrder tradeOrder) {
         Gson gson = new Gson();
         String buyOrderJsonString = gson.toJson(tradeOrder, tradeOrder.getClass());
 
@@ -47,12 +48,14 @@ public class BotBrainsRestCient {
 
         Flowable<String> flowable = httpClient.retrieve(buyRequest);
         Maybe<String> response = flowable.firstElement();
+        String responseJSon = response.blockingGet();
 
-        log.info("Response for buy trade is {}", response.blockingGet());
+        log.debug("Response for buy trade is {}", response.blockingGet());
 
+        return gson.fromJson(responseJSon, TradeOrderResponse.class);
     }
 
-    public void sellOrder (TradeOrder tradeOrder) {
+    public TradeOrderResponse sellOrder (TradeOrder tradeOrder) {
         HttpRequest deleteRequest = HttpRequest.DELETE(buyUrl + tradeOrder.getProductId())
                 .header("Authorization", authKey)
                 .header("Accept-Language", lang)
@@ -61,8 +64,12 @@ public class BotBrainsRestCient {
 
         Flowable<String> flowable = httpClient.retrieve(deleteRequest);
         Maybe<String> response = flowable.firstElement();
+        String responseJSon = response.blockingGet();
 
         log.info("Response for sell trade is {}", response.blockingGet());
+
+        Gson gson = new Gson();
+        return gson.fromJson(responseJSon, TradeOrderResponse.class);
     }
 
 
