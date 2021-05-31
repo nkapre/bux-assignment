@@ -1,6 +1,13 @@
 # Description of submission
 
-The submission for assignment is made using Java 12 and Micronaut framework with CLI support using PicoCli. The WebSocket client has been built using Jetty WebSocket client. Original creation was using the Netty WebSocket client, but the Connected message was for some reason never raised/captured. Logging is performed using SLF4J. The Rest client needs for interfacign with Buy and Sell URLs is created using the RxHttpClient. 
+The submission for assignment is made using the following :
+
+* Java 12 
+* Micronaut framework with CLI support using PicoCli
+* Jetty Websocket Client
+* SLF4JLogging is perf
+* RxHttpClient 
+* Maven
 
 The project is built using Maven and the project may be built using
 
